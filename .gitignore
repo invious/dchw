@@ -97,3 +97,4 @@ ENV/
 
 /list.py
 .idea/
+/ec2_change_mon/design.txt

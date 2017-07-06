@@ -1,6 +1,9 @@
+boto==2.47.0
 boto3==1.4.4
 botocore==1.5.79
 Django==1.11.3
+django-crudbuilder==0.2.5
+django-tables2==1.10.0
 docutils==0.13.1
 futures==3.1.1
 jmespath==0.9.3

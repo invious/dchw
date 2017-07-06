@@ -3,10 +3,21 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+
 class Instance(models.Model):
-    full_name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    phone = models.CharField(max_length=10)
-    contract = models.CharField(max_length=128)
-    terminated = models.BooleanField(default=False)
+    name = models.CharField(max_length=255)
+    type = models.CharField(max_length=15)
+    ip_address = models.CharField(max_length=15)
+    state_code = models.CharField(max_length=3)
+    architecture = models.CharField(max_length=15)
+    monitored = models.BooleanField()
+    launched = models.DateTimeField()
+    placement = models.CharField(max_length=15)
+    private_dns = models.CharField(max_length=63)
+    public_dns = models.CharField(max_length=63)
+
+
+class InstanceHistory(models.Model):
+    date = models.DateField(auto_now_add=True, blank=True)
+    instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
+    changes = models.CharField(max_length=1023)
