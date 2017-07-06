@@ -11,7 +11,8 @@ class InstanceCrud(BaseCrudBuilder):
     modelform_excludes = []
     login_required = False
     permission_required = False
-    # permissions = {
-    #   'list': 'example.person_list',
-    #       'create': 'example.person_create'
-    # }
+
+    custom_templates = {
+        'list': 'instance_list.html'
+    }
+

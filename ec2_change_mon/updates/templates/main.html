@@ -1,9 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<div class="container">
+    <div id="main_contain" class="text-center">
+    </div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
+<script>
+$(document).ready(function () {
+    $.ajax({
+        type: 'get',
+        url: '/crud/updates/instances/',
+        success: function (res) {
+            $('#main_contain').html( jQuery(res).find('.starter-template').html());
+            $('.breadcrumb').hide();
+            $('#refresh').on('click', function(){
+                alert('onclick is working.');
+                refreshInstances(); //Your function
+            });
+        }
+    });
+});
 
+function refreshInstances() {
+    $.ajax({
+        type: 'get',
+        url: '/crud/updates/instances/',
+        success: function (res) {
 
+        }
+    });
+}
+</script>
 {% endblock %}
