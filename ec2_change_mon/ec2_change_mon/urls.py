@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from updates.views import home
+from updates.views import home, refresh_instances
 
 urlpatterns = [
     url(r'^$', home),
+    url(r'^refresh', refresh_instances, name='refresh'),
     url(r'^admin/', admin.site.urls),
     url(r'^crud/',  include('crudbuilder.urls')),
 ]

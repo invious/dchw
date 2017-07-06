@@ -6,6 +6,7 @@ from django.db import models
 
 class Instance(models.Model):
     name = models.CharField(max_length=255)
+    id = models.CharField(primary_key=True, max_length=255)
     type = models.CharField(max_length=15)
     ip_address = models.CharField(max_length=15)
     state_code = models.CharField(max_length=3)
@@ -16,8 +17,21 @@ class Instance(models.Model):
     private_dns = models.CharField(max_length=63)
     public_dns = models.CharField(max_length=63)
 
+    def __str__(self):
+        return str(self.name)
+
 
 class InstanceHistory(models.Model):
     date = models.DateField(auto_now_add=True, blank=True)
     instance = models.ForeignKey(Instance, on_delete=models.CASCADE)
     changes = models.CharField(max_length=1023)
+
+
+def print_all_field_changes(sender, instance, changed_fields=None, **kwargs):
+    changes = ''
+    for field, (old, new) in changed_fields.items():
+        new_change = "%s changed from %s to %s" % (field.name, old, new)
+        changes = changes + '\n' + new_change
+
+    InstanceHistory.objects.create(
+        instance=instance, changes=changes)

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crudbuilder',
     'updates',
     'django_tables2',
+    'fieldsignals',
 ]
 
 MIDDLEWARE = [

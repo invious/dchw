@@ -1,5 +1,5 @@
 from crudbuilder.abstract import BaseCrudBuilder
-from updates.models import Instance
+from updates.models import Instance, InstanceHistory
 
 
 class InstanceCrud(BaseCrudBuilder):
@@ -13,6 +13,14 @@ class InstanceCrud(BaseCrudBuilder):
     permission_required = False
 
     custom_templates = {
-        'list': 'instance_list.html'
+        'list': 'instance_list.html',
+        'detail': 'instance_detail.html'
     }
+
+class InstanceHistoryCrud(BaseCrudBuilder):
+	model = InstanceHistory
+	tables2_css_class = "table table-bordered table-condensed"
+	tables2_fields = ('date', 'instance', 'changes')
+	search_fields = ('date', 'instance')
+	tables2_pagination = 20  # default is 10
 
