@@ -8,7 +8,7 @@ class Instance(models.Model):
     name = models.CharField(max_length=255)
     id = models.CharField(primary_key=True, max_length=255)
     type = models.CharField(max_length=15)
-    ip_address = models.CharField(max_length=15)
+    ip_address = models.CharField(max_length=15, null=True)
     state_code = models.CharField(max_length=3)
     architecture = models.CharField(max_length=15)
     monitored = models.BooleanField()
@@ -18,7 +18,7 @@ class Instance(models.Model):
     public_dns = models.CharField(max_length=63)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.public_dns)
 
 
 class InstanceHistory(models.Model):

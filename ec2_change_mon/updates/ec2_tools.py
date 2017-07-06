@@ -27,14 +27,16 @@ class EC2:
                 instance, created = Instance.objects.update_or_create(
                     id=int(''.join(re.findall('\d+', i.id))),
                     # Have to extract only digits for id due to bad design in crudbuilder. Would probably create fork of their project if had more time
-                    name=i.key_name,
-                    type=i.instance_type,
-                    ip_address=i.ip_address,
-                    state_code=i.state_code,
-                    architecture=i.architecture,
-                    monitored=i.monitored,
-                    launched=i.launch_time,
-                    placement=i.placement,
-                    private_dns=i.private_dns_name,
-                    public_dns=i.public_dns_name,
+                    defaults={
+                        'name': i.key_name,
+                        'type': i.instance_type,
+                        'ip_address': i.ip_address,
+                        'state_code': i.state_code,
+                        'architecture': i.architecture,
+                        'monitored': i.monitored,
+                        'launched': i.launch_time,
+                        'placement': i.placement,
+                        'private_dns': i.private_dns_name,
+                        'public_dns': i.public_dns_name,
+                    }
                 )

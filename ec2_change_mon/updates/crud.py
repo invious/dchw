@@ -21,6 +21,6 @@ class InstanceHistoryCrud(BaseCrudBuilder):
 	model = InstanceHistory
 	tables2_css_class = "table table-bordered table-condensed"
 	tables2_fields = ('date', 'instance', 'changes')
-	search_fields = ('date', 'instance')
+	search_fields = ('date', 'instance__private_dns')
 	tables2_pagination = 20  # default is 10
 
