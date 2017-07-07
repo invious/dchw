@@ -30,8 +30,10 @@ class InstanceHistory(models.Model):
 def print_all_field_changes(sender, instance, changed_fields=None, **kwargs):
     changes = ''
     for field, (old, new) in changed_fields.items():
-        new_change = "%s changed from %s to %s" % (field.name, old, new)
-        changes = changes + '\n' + new_change
+        if old != new:
+            new_change = "%s changed from %s to %s" % (field.name, old, new)
+            changes = changes + '\n' + new_change
 
-    InstanceHistory.objects.create(
-        instance=instance, changes=changes)
+    if changes:
+        InstanceHistory.objects.create(
+            instance=instance, changes=changes)

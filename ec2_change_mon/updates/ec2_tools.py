@@ -2,6 +2,7 @@ from django.conf import settings
 import boto.ec2
 import re
 from updates.models import Instance, InstanceHistory
+from dateutil import parser
 
 
 class EC2:
@@ -21,6 +22,7 @@ class EC2:
                    [])  # flatten list
 
     def update_db(self):
+        updated_instances = []
         for region in self._regions:
             instances = self._get_region_instances(region)
             for i in instances:
@@ -31,12 +33,15 @@ class EC2:
                         'name': i.key_name,
                         'type': i.instance_type,
                         'ip_address': i.ip_address,
-                        'state_code': i.state_code,
+                        'state_code': str(i.state_code),
                         'architecture': i.architecture,
                         'monitored': i.monitored,
-                        'launched': i.launch_time,
+                        'launched': parser.parse(i.launch_time),
                         'placement': i.placement,
                         'private_dns': i.private_dns_name,
                         'public_dns': i.public_dns_name,
                     }
                 )
+                if not created:
+                    updated_instances.append(instance.private_dns)
+        return updated_instances
